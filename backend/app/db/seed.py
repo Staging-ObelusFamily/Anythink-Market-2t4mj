@@ -7,11 +7,11 @@ user_insert_statement = text("""INSERT INTO users(username, email, salt, bio, ha
 select_last_user_id = text("""SELECT * FROM users ORDER BY id DESC LIMIT 1""")
 item_statement = text("""INSERT INTO items(slug, title, description, seller_id) VALUES(:slug, :title, :description, :seller_id)""")
 select_last_item_id = text("""SELECT * FROM items ORDER BY id DESC LIMIT 1""")
-comment_statement = text("""INSERT INTO commentaries(body, seller_id, item_id) VALUES(:body, :seller_id, :item_id)""")
+comment_statement = text("""INSERT INTO comments(body, seller_id, item_id) VALUES(:body, :seller_id, :item_id)""")
 
 clear_users = text("""DELETE FROM users""")
 clear_items = text("""DELETE FROM items""")
-clear_comments = text("""DELETE FROM commentaries""")
+clear_comments = text("""DELETE FROM comments""")
 
 with engine.connect() as con:
     con.execute(clear_users)

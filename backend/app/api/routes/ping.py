@@ -9,7 +9,8 @@ router = APIRouter()
 async def check_ping():
     try:
         res = send_event('ping', {})
-        return res
+        return json.dumps(res)
+        # return res
 
     except Exception as e:
         print(e)
