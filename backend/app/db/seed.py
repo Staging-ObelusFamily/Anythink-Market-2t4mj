@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
-engine = create_engine('postgresql://postgres:postgres@localhost/anythink-market', echo=True)
+engine = create_engine('postgresql://postgres:postgres@localhost/', echo=True)
 
 user_insert_statement = text("""INSERT INTO users(username, email, salt, bio, hashed_password) VALUES(:username, :email, :salt, :bio, :hashed_password)""")
 select_last_user_id = text("""SELECT * FROM users ORDER BY id DESC LIMIT 1""")
