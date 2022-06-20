@@ -19,7 +19,7 @@ services:
       - APP_ENV=dev
       - SECRET_KEY=secret
       - DEBUG=True
-      - DATABASE_URL=postgresql://user:@postgres:5432
+      - DATABASE_URL=postgresql://user:@postgres:5432/anythink-market
     depends_on:
       - "postgres"
 
@@ -47,6 +47,8 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: anythink-market
+
     volumes:
       - ~/posgres/data:/data/db
     ports:
