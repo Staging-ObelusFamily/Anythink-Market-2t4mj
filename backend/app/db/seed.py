@@ -1,12 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
-from sqlalchemy_utils import database_exists, create_database
 import random
 import string
 import os
 env_var = os.environ
+from app.core.config import get_app_settings
 
-engine = create_engine(env_var['DATABASE_URL'], echo=True)
+SETTINGS = get_app_settings()
+DATABASE_URL = SETTINGS.database_url
+
+engine = create_engine(DATABASE_URL, echo=True)
 
 user_insert_statement = text("""INSERT INTO users(username, email, salt, bio, hashed_password) VALUES(:username, :email, :salt, :bio, :hashed_password)""")
 select_last_user_id = text("""SELECT * FROM users ORDER BY id DESC LIMIT 1""")
@@ -14,16 +17,9 @@ item_statement = text("""INSERT INTO items(slug, title, description, seller_id) 
 select_last_item_id = text("""SELECT * FROM items ORDER BY id DESC LIMIT 1""")
 comment_statement = text("""INSERT INTO comments(body, seller_id, item_id) VALUES(:body, :seller_id, :item_id)""")
 
-clear_users = text("""DELETE FROM users""")
-clear_items = text("""DELETE FROM items""")
-clear_comments = text("""DELETE FROM comments""")
 letters = string.ascii_lowercase
 
 with engine.connect() as con:
-    con.execute(clear_users)
-    con.execute(clear_items)
-    con.execute(clear_comments)
-
     for i in range(100):
 
         random_username = ''.join(random.choice(letters) for i in range(10))
