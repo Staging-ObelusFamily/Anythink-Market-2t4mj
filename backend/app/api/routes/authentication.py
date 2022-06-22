@@ -105,4 +105,7 @@ async def register(
             ),
         )
     except Exception as e:
-        return str(e)
+        raise HTTPException(
+            status_code=HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        )
