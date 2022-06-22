@@ -94,7 +94,6 @@ async def register(
         logging.warning('token')
         send_event('user_created', { 'username': user.username })
         logging.warning('send event')
-        a = 1/0
 
         return UserInResponse(
             user=UserWithToken(
