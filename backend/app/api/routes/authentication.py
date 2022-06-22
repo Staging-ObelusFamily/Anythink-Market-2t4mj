@@ -16,6 +16,8 @@ from app.resources import strings
 from app.services import jwt
 from app.services.authentication import check_email_is_taken, check_username_is_taken
 from app.services.event import send_event
+import logging
+
 
 router = APIRouter()
 
@@ -65,26 +67,32 @@ async def register(
     users_repo: UsersRepository = Depends(get_repository(UsersRepository)),
     settings: AppSettings = Depends(get_app_settings),
 ) -> UserInResponse:
+    logger = logging.getLogger(__name__)
+    logger.warning("warning")
+
     if await check_username_is_taken(users_repo, user_create.username):
         raise HTTPException(
             status_code=HTTP_400_BAD_REQUEST,
             detail=strings.USERNAME_TAKEN,
         )
-
+    logging.warning('finished checking if username exists')
     if await check_email_is_taken(users_repo, user_create.email):
         raise HTTPException(
             status_code=HTTP_400_BAD_REQUEST,
             detail=strings.EMAIL_TAKEN,
         )
+    logging.warning('finished checking if email exists')
 
     user = await users_repo.create_user(**user_create.dict())
+    logging.warning('created user')
 
     token = jwt.create_access_token_for_user(
         user,
         str(settings.secret_key.get_secret_value()),
     )
-
+    logging.warning('token')
     send_event('user_created', { 'username': user.username })
+    logging.warning('send event')
 
     return UserInResponse(
         user=UserWithToken(
