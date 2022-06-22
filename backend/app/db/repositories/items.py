@@ -138,7 +138,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         )
         # fmt: on
         if title:
-            query = query.where(items.title.like(f'%asd{title}%'))
+            query = query.where(items.title.like(f'%{title}%'))
 
         if tag:
             query_params.append(tag)
