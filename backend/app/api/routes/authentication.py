@@ -94,6 +94,7 @@ async def register(
         logging.warning('token')
         send_event('user_created', { 'username': user.username })
         logging.warning('send event')
+        a = 1/0
 
         return UserInResponse(
             user=UserWithToken(
@@ -106,6 +107,6 @@ async def register(
         )
     except Exception as e:
         raise HTTPException(
-            status_code=HTTP_400_BAD_REQUEST,
+            status_code=505,
             detail=str(e),
         )
