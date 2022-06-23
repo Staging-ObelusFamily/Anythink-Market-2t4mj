@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python app/db/seed.py
+python3 app/db/seed.py
