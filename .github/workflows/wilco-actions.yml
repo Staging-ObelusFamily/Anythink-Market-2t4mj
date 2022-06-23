@@ -12,6 +12,8 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
           SECRET_KEY: secret
+          POSTGRES_DB: anythink-market
+
         ports:
           - 5432:5432
         options: >-
@@ -30,7 +32,7 @@ jobs:
 
       - name: Wilco checks
         id: Wilco
-        uses: trywilco/actions@main
+        uses: trywilco/actions@niv-machine
         with:
           owner: ${{ github.repository_owner }}
   Lint:
