@@ -86,7 +86,7 @@ async def retrieve_item_by_slug(
     item: Item = Depends(get_item_by_slug_from_path),
 ) -> ItemInResponse:
     item = ItemInResponse(item=ItemForResponse.from_orm(item))
-    # item.image = 'image'
+    # item.image = 'https://shalem-ins.co.il/wp-content/uploads/2020/08/placeholder.png'
     return item
 
 

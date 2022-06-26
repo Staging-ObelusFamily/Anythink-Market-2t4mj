@@ -308,7 +308,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
             title=item_row["title"],
             description=item_row["description"],
             body=item_row["body"],
-            image=item_row["image"],
+            image=item_row["image"] if item_row["image"] else 'https://shalem-ins.co.il/wp-content/uploads/2020/08/placeholder.png',
             seller=await self._profiles_repo.get_profile_by_username(
                 username=seller_username,
                 requested_user=requested_user,
